@@ -1,29 +1,23 @@
-# Fase di build
-FROM node:16 AS build
+# Usa un'immagine base di Node.js per la build
+FROM node:18 AS build
 
-# Imposta la cartella di lavoro
+# Imposta la directory di lavoro
 WORKDIR /app
 
-# Copia i file package.json e package-lock.json
-COPY package*.json ./
-
-# Installa le dipendenze
-RUN npm install
-
-# Copia il resto dei file del progetto
+# Copia i file del frontend
 COPY . .
 
-# Costruisce l'app React per la produzione
-RUN npm run build
+# Installa le dipendenze e costruisci l'app React
+RUN npm install && npm run build
 
-# Fase finale
+# Usa un server web leggero per servire l'app
 FROM nginx:alpine
 
-# Copia i file di build da React nella cartella di Nginx
+# Copia i file della build nel server Nginx
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Espone la porta 80
+# Esponi la porta 80 per il traffico HTTP
 EXPOSE 80
 
-# Avvia Nginx per servire l'app React
+# Avvia Nginx
 CMD ["nginx", "-g", "daemon off;"]

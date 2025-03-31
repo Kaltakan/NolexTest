@@ -1,18 +1,17 @@
-FROM python:3.10
+# Usa un'immagine base di Python
+FROM python:3.9
 
-# Imposta la directory di lavoro nel container
+# Imposta la directory di lavoro
 WORKDIR /app
 
-# Copia i file di configurazione e i file necessari
-COPY requirements.txt .
-COPY main.py .
-COPY config.ini .
+# Copia i file del backend nella directory di lavoro
+COPY . .
 
 # Installa le dipendenze
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Espone la porta dell'app Flask
+# Esponi la porta su cui gira Flask
 EXPOSE 5000
 
-# Comando di avvio
-CMD ["python", "main.py"]
+# Comando per avviare l'app Flask
+CMD ["python", "app.py"]
