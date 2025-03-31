@@ -11,10 +11,9 @@ const App = () => {
   const [selectedEsami, setSelectedEsami] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchField, setSearchField] = useState("descrizione");
-  const apiUrl = process.env.REACT_APP_API_URL;
-
+  
   useEffect(() => {
-    axios.get(`${apiUrl}ambulatori`).then((res) => {
+    axios.get("ttp://34.17.16.252:5000/ambulatori").then((res) => {
       setAmbulatori(res.data);
       if (res.data.length > 0) setSelectedAmbulatorio(res.data[0].id);
     });
@@ -22,7 +21,7 @@ const App = () => {
 
   useEffect(() => {
     if (selectedAmbulatorio) {
-      axios.get(`${apiUrl}parti-del-corpo`).then((res) => {
+      axios.get(`http://34.17.16.252:5000/parti-del-corpo`).then((res) => {
         setPartiDelCorpo(res.data);
         if (res.data.length > 0) setSelectedParteDelCorpo(res.data[0].id);
       });
@@ -33,7 +32,7 @@ const App = () => {
     if (selectedAmbulatorio && selectedParteDelCorpo) {
       axios
         .get(
-          `${apiUrl}esami?ambulatorio_id=${selectedAmbulatorio}&parte_del_corpo_id=${selectedParteDelCorpo}`
+          `http://34.17.16.252:5000/esami?ambulatorio_id=${selectedAmbulatorio}&parte_del_corpo_id=${selectedParteDelCorpo}`
         )
         .then((res) => {
           setEsami(res.data);
@@ -43,7 +42,7 @@ const App = () => {
 
   const handleSearch = () => {
     axios
-      .get(`${apiUrl}esami/search?campo=${searchField}&filtro=${searchTerm}`)
+      .get(`http://34.17.16.252:5000/esami/search?campo=${searchField}&filtro=${searchTerm}`)
       .then((res) => {
         setEsami(res.data);
       });
