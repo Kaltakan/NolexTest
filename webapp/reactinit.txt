@@ -1,0 +1,14 @@
+# Inizializza un progetto React con Vite
+npm create vite@latest frontend --template react
+
+# Spostati nella directory del progetto
+cd frontend
+
+# Installa le dipendenze necessarie
+npm install
+
+# Installa librerie aggiuntive
+npm install axios react-router-dom
+
+# Avvia l'applicazione in modalità sviluppo
+npm run dev
