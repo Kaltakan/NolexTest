@@ -13,7 +13,7 @@ const App = () => {
   const [searchField, setSearchField] = useState("descrizione");
   
   useEffect(() => {
-    axios.get("ttp://34.17.16.252:5000/ambulatori").then((res) => {
+    axios.get("http://34.17.16.252:5000/ambulatori").then((res) => {
       setAmbulatori(res.data);
       if (res.data.length > 0) setSelectedAmbulatorio(res.data[0].id);
     });

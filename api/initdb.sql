@@ -1,4 +1,4 @@
-CREATE TABLE ambulatori (
+CREATE TABLE ambulatorio (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL
 );
@@ -8,7 +8,7 @@ CREATE TABLE parti_del_corpo (
     nome VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE esami (
+CREATE TABLE esame (
     id SERIAL PRIMARY KEY,
     codice_ministeriale VARCHAR(10),
     codice_interno VARCHAR(10),
@@ -23,14 +23,14 @@ CREATE TABLE esami_ambulatori (
 );
 
 -- Dati di test
-INSERT INTO ambulatori (nome) VALUES 
+INSERT INTO ambulatorio (nome) VALUES 
     ('Radiologia'), ('Tac1'), ('Tac2'), ('Risonanza'), 
     ('EcografiaPrivitera'), ('EcografiaMassimino'), ('EcografiaDoppler');
 
 INSERT INTO parti_del_corpo (nome) VALUES 
     ('Testa'), ('Arti superiori'), ('Addome'), ('Torace');
 
-INSERT INTO esami (codice_ministeriale, codice_interno, descrizione, parte_del_corpo_id) VALUES 
+INSERT INTO esame (codice_ministeriale, codice_interno, descrizione, parte_del_corpo_id) VALUES 
     ('RX123', 'INT001', 'RX mano Dx', 2),
     ('RMN456', 'INT002', 'RMN cranio', 1),
     ('ECO789', 'INT003', 'Eco Addome', 3);
