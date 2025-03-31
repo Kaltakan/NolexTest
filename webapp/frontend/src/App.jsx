@@ -11,9 +11,12 @@ const App = () => {
   const [selectedEsami, setSelectedEsami] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchField, setSearchField] = useState("descrizione");
-  
+
+  // La variabile d'ambiente per l'API
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
-    axios.get("ttp://34.17.16.252:5000/ambulatori").then((res) => {
+    axios.get(`${apiUrl}ambulatori`).then((res) => {
       setAmbulatori(res.data);
       if (res.data.length > 0) setSelectedAmbulatorio(res.data[0].id);
     });
@@ -21,7 +24,7 @@ const App = () => {
 
   useEffect(() => {
     if (selectedAmbulatorio) {
-      axios.get(`http://34.17.16.252:5000/parti-del-corpo`).then((res) => {
+      axios.get(`${apiUrl}parti-del-corpo`).then((res) => {
         setPartiDelCorpo(res.data);
         if (res.data.length > 0) setSelectedParteDelCorpo(res.data[0].id);
       });
@@ -32,7 +35,7 @@ const App = () => {
     if (selectedAmbulatorio && selectedParteDelCorpo) {
       axios
         .get(
-          `http://34.17.16.252:5000/esami?ambulatorio_id=${selectedAmbulatorio}&parte_del_corpo_id=${selectedParteDelCorpo}`
+          `${apiUrl}esami?ambulatorio_id=${selectedAmbulatorio}&parte_del_corpo_id=${selectedParteDelCorpo}`
         )
         .then((res) => {
           setEsami(res.data);
@@ -42,7 +45,7 @@ const App = () => {
 
   const handleSearch = () => {
     axios
-      .get(`http://34.17.16.252:5000/esami/search?campo=${searchField}&filtro=${searchTerm}`)
+      .get(`${apiUrl}esami/search?campo=${searchField}&filtro=${searchTerm}`)
       .then((res) => {
         setEsami(res.data);
       });
@@ -56,7 +59,9 @@ const App = () => {
             <h2>Ambulatori</h2>
             <select className="form-control" onChange={(e) => setSelectedAmbulatorio(e.target.value)}>
               {ambulatori.map((a) => (
-                <option key={a.id} value={a.id}>{a.nome}</option>
+                <option key={a.id} value={a.id}>
+                  {a.nome}
+                </option>
               ))}
             </select>
           </div>
@@ -64,7 +69,9 @@ const App = () => {
             <h2>Parti del Corpo</h2>
             <select className="form-control" onChange={(e) => setSelectedParteDelCorpo(e.target.value)}>
               {partiDelCorpo.map((p) => (
-                <option key={p.id} value={p.id}>{p.nome}</option>
+                <option key={p.id} value={p.id}>
+                  {p.nome}
+                </option>
               ))}
             </select>
           </div>
@@ -81,7 +88,9 @@ const App = () => {
               <option value="codice_interno">Codice Interno</option>
               <option value="descrizione">Descrizione</option>
             </select>
-            <button className="btn btn-primary me-2" onClick={handleSearch}>Cerca</button>
+            <button className="btn btn-primary me-2" onClick={handleSearch}>
+              Cerca
+            </button>
           </div>
         </div>
         <div className="row mt-4">
@@ -101,7 +110,10 @@ const App = () => {
                     <td>{e.codice_ministeriale}</td>
                     <td>{e.descrizione}</td>
                     <td>
-                      <button className="btn btn-success" onClick={() => setSelectedEsami([...selectedEsami, e])}>
+                      <button
+                        className="btn btn-success"
+                        onClick={() => setSelectedEsami([...selectedEsami, e])}
+                      >
                         Seleziona
                       </button>
                     </td>
