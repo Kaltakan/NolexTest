@@ -15,7 +15,7 @@ config.read('config.ini')
 DB_USER = config.get('Database', 'USER', fallback='postgres')
 DB_PASS = config.get('Database', 'PASSWORD', fallback='admin')
 DB_HOST = config.get('Database', 'HOST', fallback='localhost')
-DB_PORT = config.get('Database', 'PORT', fallback='5434')
+DB_PORT = config.get('Database', 'PORT', fallback='5432')
 DB_NAME = config.get('Database', 'NAME', fallback='med_db')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
